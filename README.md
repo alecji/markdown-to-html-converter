@@ -1,13 +1,14 @@
 # Markdown to HTML Converter
 
+To run the app, please run both the client and server
 
-## Start Client
+## Starting the Client
 
-In the client directory, npm install then run: `npm run start`
+In the client directory, run `npm install` then run `npm run start`
 
-## Start Server
+## Starting the Server
 
-In the server directory, npm install then run: `npm run server`
+In the server directory, run `npm install` then run `npm run server`
 
 
 
