@@ -1,18 +1,31 @@
 class ConvertService {
-    static convertMarkdownToHTML(markdown){
-        let paragraphs = markdown.split('\n');
-        let html = paragraphs.map(paragraph => {
-            if (paragraph !== "") {
-                let lines = paragraph.split('\n');
-                let trimmed = lines[0].trim();
-                if (trimmed.startsWith('#')) {
-                    return this._processHeaderElements(trimmed)
-                } else {
-                    return `<p>${lines.map(line => this._processInlineElements(line.trim())).join('\n')}</p>`;
+    static convertMarkdownToHTML(markdown) {
+        let lines = markdown.split('\n');
+        let html = "";
+        let currentParagraph = [];
+        for (let line of lines) {
+            let trimmed = line.trim();
+            if (trimmed === "") {
+                // blank line, end current paragraph
+                if (currentParagraph.length > 0) {
+                    html += `<p>${currentParagraph.map(line => this._processInlineElements(line)).join('\n')}</p>`;
+                    currentParagraph = [];
                 }
+            } else if (trimmed.startsWith('#')) {
+                // heading, end current paragraph and process heading
+                if (currentParagraph.length > 0) {
+                    html += `<p>${currentParagraph.map(line => this._processInlineElements(line)).join('\n')}</p>`;
+                    currentParagraph = [];
+                }
+                html += this._processHeaderElements(trimmed);
+            } else {
+                currentParagraph.push(trimmed);
             }
-          
-        }).join('');
+        }
+        // process any remaining paragraphs
+        if (currentParagraph.length > 0) {
+            html += `<p>${currentParagraph.map(line => this._processInlineElements(line)).join('\n')}</p>`;
+        }
         return html;
     }
 
