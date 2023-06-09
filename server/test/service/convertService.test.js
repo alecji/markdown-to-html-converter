@@ -43,10 +43,10 @@ describe('ConvertService', () => {
     });
   });
 
-  describe('_processInlineElements', () => {
+  describe('_processHyperlinkElements', () => {
     it('should convert markdown links to html links', () => {
       const markdown = '[Link text](https://www.example.com)';
-      const html = ConvertService._processInlineElements(markdown);
+      const html = ConvertService._processHyperlinkElements(markdown);
       expect(html).to.equal('<a href="https://www.example.com">Link text</a>');
     });
   });
