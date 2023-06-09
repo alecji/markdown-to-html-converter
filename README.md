@@ -1,4 +1,5 @@
 # Markdown to HTML Converter
+Convert markdown text to html
 
 To run the app, please run both the client and server
 
