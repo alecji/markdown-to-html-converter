@@ -6,7 +6,7 @@ class ConvertService {
         for (let line of lines) {
             let trimmed = line.trim();
             if (trimmed === "") {
-                // blank line, end current paragraph
+                // blank line
                 if (currentParagraph.length > 0) {
                     html += `<p>${currentParagraph.map(line => this._processInlineElements(line)).join('\n')}</p>`;
                     currentParagraph = [];
