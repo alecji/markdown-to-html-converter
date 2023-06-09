@@ -1,6 +1,6 @@
 class ConvertService {
     static convertMarkdownToHTML(markdown){
-        let paragraphs = markdown.split('\n\n');
+        let paragraphs = markdown.split('\n');
         let html = paragraphs.map(paragraph => {
             if (paragraph !== "") {
                 let lines = paragraph.split('\n');
@@ -17,8 +17,11 @@ class ConvertService {
     }
 
     static _processHeaderElements(trimmed) {
-        let headerLevel = Math.min(trimmed.lastIndexOf('#') + 1, 6);
-        let text = trimmed.substring(headerLevel).trim();
+        const splitElements = trimmed.split(' ');
+        const headerLevel = splitElements[0].lastIndexOf('#') + 1
+        const text = trimmed.substring(headerLevel).trim();
+        const isAllHashes = [...splitElements[0]].every(char => char === '#');
+        if(headerLevel > 6 || !isAllHashes) return `<p>${this._processInlineElements(trimmed)}</p>`
         return `<h${headerLevel}>${this._processInlineElements(text)}</h${headerLevel}>`;
     }
     
