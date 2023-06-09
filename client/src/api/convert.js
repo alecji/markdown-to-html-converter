@@ -5,5 +5,5 @@ export const convertToHTML = async (markdown = '') => {
         if (response.status >= 300) {
             throw Error(response.status);
         }
-        return response.data;
+        return response.data.html;
 };
